@@ -19,3 +19,23 @@ steps:
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true    
     goals: 'jpro:release'
+- task: ExtractFiles@1
+  inputs:
+    archiveFilePatterns: 'target/resume-fx-jpro.zip'
+    destinationFolder: '.'
+- task: DockerCompose@0
+  inputs:
+    containerregistrytype: 'Azure Container Registry'
+    azureSubscription: 'Azure subscription 1(03b8c06f-2d48-49f4-af34-4f12ea26d1ab)'
+    azureContainerRegistry: '{"loginServer":"dgarciai.azurecr.io", "id" : "/subscriptions/03b8c06f-2d48-49f4-af34-4f12ea26d1ab/resourceGroups/cps/providers/Microsoft.ContainerRegistry/registries/dgarciai"}'
+    dockerComposeFile: '**/docker-compose.yml'
+    action: 'Run a Docker Compose command'
+    dockerComposeCommand: 'build'
+- task: DockerCompose@0
+  inputs:
+    containerregistrytype: 'Azure Container Registry'
+    azureSubscription: 'Azure subscription 1(03b8c06f-2d48-49f4-af34-4f12ea26d1ab)'
+    azureContainerRegistry: '{"loginServer":"dgarciai.azurecr.io", "id" : "/subscriptions/03b8c06f-2d48-49f4-af34-4f12ea26d1ab/resourceGroups/cps/providers/Microsoft.ContainerRegistry/registries/dgarciai"}'
+    dockerComposeFile: '**/docker-compose.yml'
+    action: 'Run a Docker Compose command'
+    dockerComposeCommand: 'push'    
