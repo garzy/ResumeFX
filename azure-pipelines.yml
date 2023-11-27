@@ -23,6 +23,7 @@ steps:
   inputs:
     archiveFilePatterns: 'target/resume-fx-jpro.zip'
     destinationFolder: '.'
+    cleanDestinationFolder: false
 - task: DockerCompose@0
   inputs:
     containerregistrytype: 'Azure Container Registry'
